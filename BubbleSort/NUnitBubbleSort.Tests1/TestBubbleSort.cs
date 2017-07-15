@@ -14,10 +14,13 @@ namespace NUnitBubbleSort.Tests1
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 3, 3 }, new int[] { 0, 0, 0 }, ExpectedResult = true)]
         public bool Test_BubbleSort(params int[][] array)
         {
-            ICompare refe = new ByMinElementIncrement();
-            BubbleSortArray.BubbleSort(array, refe);
-            int[,] myArr = { { 0, 0, 0 }, { 1, 2, 3 }, { 2, 3, 3 } };
-            return Array.Equals(array, myArr);
+            BubbleSortArray.BubbleSort( array, new BySumOfArrayIncrement());
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                if (array[i].Sum() > array[i + 1].Sum()) return false;
+            }
+            return true;
+            
         }
     }
     class BySumOfArrayIncrement : ICompare
@@ -42,7 +45,7 @@ namespace NUnitBubbleSort.Tests1
     }
     class ByMinElementDecrease : ICompare
     {
-        public int CompareTo(int[] lhs, int[] rhs) => lhs.Min() - rhs.Min();
+        public int CompareTo(int[] lhs, int[] rhs) => -lhs.Min() + rhs.Min();
     }
 
 }

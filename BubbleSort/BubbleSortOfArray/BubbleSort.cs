@@ -24,9 +24,9 @@ namespace BubbleSortOfArray
         /// <param name="array">array with 2 measure</param>
         public static void BubbleSort(int[][] array, ICompare compare)
         {
-            for (int i = 0; i < array.Length; i++) 
+            for (int i = 0; i < array.Length - 1; i++) 
             {
-                for(int j = 0; i < array.Length - 1 - i; i++)
+                for(int j = 0; j < array.Length - 1 - i; j++)
                 {
                     if (compare.CompareTo(array[j], array[j + 1]) > 0) Swap(ref array[j], ref array[j + 1]);
                 }
