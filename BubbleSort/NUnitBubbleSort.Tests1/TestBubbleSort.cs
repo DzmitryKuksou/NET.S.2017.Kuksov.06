@@ -12,15 +12,24 @@ namespace NUnitBubbleSort.Tests1
     public class TestBubbleSort
     {    
         [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 3, 3 }, new int[] { 0, 0, 0 }, ExpectedResult = true)]
-        public bool Test_BubbleSort(params int[][] array)
+        public bool Test_BubbleSort_interfaces(params int[][] array)
         {
-            BubbleSortArray.BubbleSort( array, new BySumOfArrayIncrement());
+            BubbleSortArray.BubbleSort(array, new delegateCompareTo(new BySumOfArrayIncrement().CompareTo));
             for (int i = 0; i < array.Length - 1; i++)
             {
                 if (array[i].Sum() > array[i + 1].Sum()) return false;
             }
             return true;
-            
+        }
+        [TestCase(new int[] { 1, 2, 3 }, new int[] { 2, 3, 3 }, new int[] { 0, 0 }, new int[] { 6 }, ExpectedResult = true)]
+        public bool Test_BubbleSort_delegate(params int[][] array)
+        {
+            BubbleSortArray.BubbleSort(array, new BySumOfArrayIncrement().CompareTo);
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                if (array[i].Sum() > array[i + 1].Sum()) return false;
+            }
+            return true;
         }
     }
     class BySumOfArrayIncrement : ICompare

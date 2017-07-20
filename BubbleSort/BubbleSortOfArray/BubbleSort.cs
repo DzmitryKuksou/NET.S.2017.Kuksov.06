@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 namespace BubbleSortOfArray
 {
     /// <summary>
+    /// 
+    /// </summary>
+    public delegate int delegateCompareTo(int[] lhs, int[] rhs);
+    /// <summary>
     /// interface provides method for compare two array
     /// </summary>
     public interface ICompare
@@ -29,6 +33,16 @@ namespace BubbleSortOfArray
                 for(int j = 0; j < array.Length - 1 - i; j++)
                 {
                     if (compare.CompareTo(array[j], array[j + 1]) > 0) Swap(ref array[j], ref array[j + 1]);
+                }
+            }
+        }
+        public static void BubbleSort(int[][] array, delegateCompareTo compare)
+        {
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                for (int j = 0; j < array.Length - 1 - i; j++)
+                {
+                    if (compare.Invoke(array[j], array[j + 1]) > 0) Swap(ref array[j], ref array[j + 1]);
                 }
             }
         }
